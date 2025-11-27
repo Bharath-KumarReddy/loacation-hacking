@@ -34,7 +34,7 @@ export default function App() {
 
       console.log("📡 Sending location:", payload);
 
-      fetch("http://localhost:5000/api/location", {
+      fetch("https://backend-locationapp.onrender.com/api/location", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
