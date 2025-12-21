@@ -13,6 +13,17 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.header-container {
+    @media (max-width: 767px) {
+      position: relative !important;
+    }
+}
+.app-header { 
+    @media (max-width: 767px) {
+      font-size: 1rem !important; 
+    }
+}
+
 a {
   font-weight: 500;
   color: #646cff;

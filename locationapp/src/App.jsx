@@ -110,7 +110,6 @@
   // }
 
 import React, { useState, useEffect } from "react";
-
 export default function App() {
   const [coords, setCoords] = useState(null);
   const [error, setError] = useState("");
@@ -173,12 +172,12 @@ export default function App() {
   };
 
   return (
-    <div style={{ padding: 20, textAlign: "center" }}>
-      <h2>Welcome</h2>
+    <div className='header-container' style={{ padding: 20, textAlign: "center", position: "absolute", top:0}}>
+      <h2 className="app-header" style={{fontSize: '20px'}}>Allow location to access the content for better experience...</h2>
 
-      {loading && <p>......</p>}
+      {/* {loading && <p>......</p>}
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>} */}
 
       {coords && (
         <div
