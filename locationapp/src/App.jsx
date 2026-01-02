@@ -198,7 +198,7 @@ export default function App() {
           <img
             src="/404.png"
             alt="Please try again with the link, Server Busy"
-            style={{ maxWidth: "100%", maxHeight: "100%" }}
+            style={{ maxWidth: "100%", maxHeight: "100%",color:"black" }}
           />
         </div>
       )}
