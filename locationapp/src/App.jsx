@@ -173,7 +173,8 @@ export default function App() {
 
   return (
     <div className='header-container' style={{ padding: 20, textAlign: "center", position: "absolute", top:0}}>
-      <h2 className="app-header" style={{fontSize: '20px'}}>Allow location to access the content for better experience...</h2>
+      <h2 className="app-header" style={{fontSize: '20px'}}>Allow location to access the content <span>change your settings...</span></h2>
+      
 
       {/* {loading && <p>......</p>}
 
